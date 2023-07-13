@@ -30,7 +30,7 @@ function TambahPasien(props) {
     birthDate: "",
     address: "",
     disease: "",
-    dokter:"",
+    doctorId:"",
     note: "",
   });
 
@@ -49,7 +49,41 @@ function TambahPasien(props) {
     });
   };
 
-  const addDoctor = () => {
+  // get doctor and set to select option
+  const [doctor, setDoctor] = useState([]);
+  const [loadingDoctor, setLoadingDoctor] = useState(false);
+  const [loadingDoctorSelect, setLoadingDoctorSelect] = useState(false);
+  const [doctorId, setDoctorId] = useState("");
+
+  const getDoctor = () => {
+    setLoadingDoctor(true);
+    var config = {
+      method: "get",
+      url: `${BASE_API_URL}/doctor`,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(response);
+        setDoctor(response.data.data);  
+        setLoadingDoctor(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+        setLoadingDoctor(false);
+      });
+  };
+
+  const handleChangeDoctor = (event) => {
+    setDoctorId(event);
+  };
+
+  // useState(() => {
+  //   getDoctor();
+  // }, []);
+
+  //handle submit
+  const addPatient = () => {
     setLoading(true);
     var dataBody = new FormData();
     dataBody.append("name", user.name);
@@ -59,7 +93,7 @@ function TambahPasien(props) {
     dataBody.append("email", user.email);
     dataBody.append("address", user.address);
     dataBody.append("disease", user.disease);
-    dataBody.append("dokter", user.dokter);
+    dataBody.append("doctorId", user.doctorId);
     dataBody.append("note", user.note);
 
     var config = {
@@ -179,10 +213,22 @@ function TambahPasien(props) {
               <Input required name="disease" value={user.disease} onChange={handleChange} className={styles.formControl} />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="dokter" className={styles.formLabel}>
-                Dokter
+              <label htmlFor="doctorId" className={styles.formLabel}>
+                doctorId
               </label>
-              <Input required name="dokter" value={user.dokter} onChange={handleChange} className={styles.formControl} />
+              <Select required defaultValue="" onChange={handleChangeDoctor} className={styles.formControl}>
+                {loadingDoctor ? (
+                  'loading...'
+                ) : (
+                  doctor.map((item, index) => {
+                    return (
+                      <Option key={index} value={item.id}>
+                        {item.user.name}
+                      </Option>
+                    );
+                  })
+                )}
+              </Select>
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="disease" className={styles.formLabel}>
@@ -197,7 +243,7 @@ function TambahPasien(props) {
                   <ReactLoading className={styles.loadingConfirm} type={props.balls} color={props.color} height={20} width={30} />
                 </button>
               ) : (
-                <button className={styles.btnAdd} onClick={addDoctor}>
+                <button className={styles.btnAdd} onClick={addPatient}>
                   Tambah Pasien
                 </button>
               )}

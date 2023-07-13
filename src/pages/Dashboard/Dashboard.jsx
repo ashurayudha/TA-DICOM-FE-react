@@ -274,13 +274,13 @@ function Dashboard() {
             <div className={styles.dashboardCityContainer}></div>
 
             <div className={styles.tableDashboardContainer}>
-              {
+              {/* {
                 data.role.role === "admin" &&
                 <div className={styles.tableDashboardCard}>
                   <h3 className={styles.dashboardTableTitle}>Dokter Terbaru</h3>
                   <Table columns={columns2} dataSource={dataDoctor} />
                 </div>
-              }
+              } */}
               <div className={styles.tableDashboardCard}>
                 <h3 className={styles.dashboardTableTitle}>Pasien Terbaru</h3>
                 <Table columns={columns} dataSource={dataPatient} />

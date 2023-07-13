@@ -25,7 +25,6 @@ function AddDoctor(props) {
     name: "",
     email: "",
     phoneNumber: "",
-    pasien:"",
     gender: "",
     password: "",
     confirmPassword: "",
@@ -55,7 +54,6 @@ function AddDoctor(props) {
       name: user.name,
       email: user.email,
       phoneNumber: user.phoneNumber.toString(),
-      pasien: user.pasien,
       gender: user.gender,
       password: user.password,
       confirmPassword: user.confirmPassword,
@@ -78,7 +76,6 @@ function AddDoctor(props) {
           strNumber: user.strNumber.toString(),
           //birthDate: null,
           address: null,
-          pasien: null,
           specialization: null,
           practicePlace: null,
           note: null,
@@ -198,12 +195,12 @@ function AddDoctor(props) {
               <Input addonBefore="+62" required type="number" name="phoneNumber" value={user.phoneNumber} onChange={handleChange} className={styles.formControl} />
             </div>
 
-            <div className={styles.formGroup}>
+            {/* <div className={styles.formGroup}>
               <label htmlFor="pasien" className={styles.formLabel}>
                 pasien
               </label>
               <Input required type="text" name="pasien" value={user.pasien} onChange={handleChange} className={styles.formControl} />
-            </div>
+            </div> */}
 
 
             <div className={styles.formGroup}>
